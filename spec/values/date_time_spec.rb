@@ -76,5 +76,23 @@ describe Icalendar::Values::DateTime do
         expect(subject.to_ical described_class).to eq ":#{value}"
       end
     end
+
+    # example from production data
+    context 'time format with spaces' do
+      let(:value) { '20140618T16 4500Z' }
+
+      it 'is parsed correctly' do
+        expect(subject.value).to eq DateTime.parse('20140618T164500Z')
+      end
+    end
+
+    # example from production data
+    context 'time format with letters' do
+      let(:value) { '20140627TTbc00Z' }
+
+      it 'is parsed correctly' do
+        expect(subject.value).to eq DateTime.parse('20140627T00000Z')
+      end
+    end
   end
 end

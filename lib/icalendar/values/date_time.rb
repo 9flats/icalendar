@@ -11,8 +11,9 @@ module Icalendar
 
       def initialize(value, params = {})
         if value.is_a? String
+          value.delete!(' ')
           params['tzid'] = 'UTC' if value.end_with? 'Z'
-          super ::DateTime.strptime(value, FORMAT), params
+          super ::DateTime.parse(value), params
         elsif value.respond_to? :to_datetime
           super value.to_datetime, params
         else
